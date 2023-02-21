@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4.1 Diseño</title>
+    <style>
+        
+        input[type="submit"],
+        button {
+            background-color: steelblue;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: royalblue;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: steelblue;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .error {
+            color: red;
+            margin-top: 5px;
+            display: none;
+        }
+
+        input:invalid {
+            border-color: red;
+        }
+
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form>
+            <fieldset>
+                <legend>Formulario de contacto</legend>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                    <span class="error">El nombre es obligatorio</span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="error">El correo electrónico es obligatorio</span>
+                </div>
+                <div class="form-group">
+                    <label for="tlf">Teléfono</label>
+                    <input type="tel" id="tlf" name="tlf" required>
+                    <span class="error">El teléfono es obligatorio</span>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Información adicional</legend>
+                <div class="form-group">
+                    <label for="subject">Asunto</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="consulta">Consulta</option>
+                        <option value="sugerencia">Sugerencia</option>
+                        <option value="reclamo">Reclamo</option>
+                    </select>
+                    <span class="error">El asunto es obligatorio</span>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensaje</label>
+                    <textarea id="message" name="message" required></textarea>
+                    <span class="error">El mensaje es obligatorio</span>
+                </div>
+                <div class="form-group">
+                    <label for="info">¿Deseas recibir información adicional?</label>
+                    <input type="checkbox" id="info" name="info">
+                </div>
+                <details>
+                    <summary>Detalles</summary>
+                    Esto es un ejemplo de details y summary.
+                </details>
+            </fieldset>
+            <div class="form-actions">
+                <input type="submit" value="Enviar">
+                <input type="reset" value="Limpiar">
+            </div>
+        </form>
+        <button id="open-dialog">Abrir diálogo</button>
+        <dialog class="dialog">
+            <p>Este es un ejemplo de un diálogo interactivo en HTML y CSS</p>
+            <button class="dialog-close">Cerrar</button>
+        </dialog>
+    </div>
+    <script>
+        var form = document.querySelector("form");
+        var errorElements = document.querySelectorAll(".error");
+        var openDialogButton = document.querySelector("#open-dialog");
+        var dialog = document.querySelector(".dialog");
+        var closeDialogButton = document.querySelector(".dialog-close");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            var valid = true;
+
+            for (var i = 0; i < errorElements.length; i++) {
+                var input = errorElements[i].previousElementSibling;
+
+                if (!input.value) {
+                    errorElements[i].style.display = "block";
+                    valid = false;
+                } else {
+                    errorElements[i].style.display = "none";
+                }
+            }
+
+            if (valid) {
+                alert("El formulario se ha enviado correctamente");
+            }
+        });
+
+        openDialogButton.addEventListener("click", function () {
+            dialog.classList.add("dialog-open");
+        });
+
+        closeDialogButton.addEventListener("click", function () {
+            dialog.classList.remove("dialog-open");
+        });
+    </script>
+</body>
+
+</html>
